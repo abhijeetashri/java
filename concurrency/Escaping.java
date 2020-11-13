@@ -1,11 +1,7 @@
-package com.java.threads;
-
-import java.util.Arrays;
-
 public class Escaping {
 
 	private static class UnsafeStates {
-		private static String[] states = { "Delhi", "Haryana", "Uttar Pradesh", "Telengana", };
+		private static String[] states = { "Delhi", "Haryana", "Uttar Pradesh", "Telangana"};
 
 		public String[] getStates() {
 			return states;
@@ -16,7 +12,7 @@ public class Escaping {
 		UnsafeStates us = new UnsafeStates();
 		String[] indianStates = us.getStates();
 		Arrays.stream(indianStates).forEach(System.out::println);
-		indianStates[0] = "I changed dummy!";
+		indianStates[0] = "I changed the value!";
 		System.out.println("----------");
 		Arrays.stream(indianStates).forEach(System.out::println);
 

@@ -1,5 +1,3 @@
-package com.java.threads;
-
 public class ThreadConfinementUsingThreadLocal {
 
 	public static void main(String[] args) {

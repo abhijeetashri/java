@@ -1,5 +1,3 @@
-package com.java.threads;
-
 public class StartingThread {
 
 	private static class EventListener {

@@ -1,5 +1,3 @@
-package com.java.threads;
-
 public class VolatileVariables {
 
 	private static int count;

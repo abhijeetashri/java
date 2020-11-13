@@ -1,5 +1,3 @@
-package com.java.threads;
-
 public class NoVisibility {
 
 	private static boolean isRunning;
