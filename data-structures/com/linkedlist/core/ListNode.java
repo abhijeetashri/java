@@ -138,6 +138,36 @@ public final class ListNode<T> {
 		return headFwd == null || headRev == null;
 	}
 
+	/**
+	 * Rearrange list such that nodes from the second half of the LinkedList are
+	 * inserted alternately to the nodes from the first half in reverse order
+	 */
+	public void rearrangeList() {
+		Node<T> slowPtr = head;
+		Node<T> fastPtr = head;
+		while (slowPtr != null && fastPtr != null && fastPtr.next != null) {
+			slowPtr = slowPtr.next;
+			fastPtr = fastPtr.next.next;
+		}
+
+		Node<T> headRev = reverse(slowPtr);
+		Node<T> headFwd = head;
+
+		while (headFwd != null && headRev != null) {
+			Node<T> temp = headFwd.next;
+			headFwd.next = headRev;
+			headFwd = temp;
+
+			temp = headRev.next;
+			headRev.next = headFwd;
+			headRev = temp;
+		}
+
+		if (headFwd != null) {
+			headFwd.next = null;
+		}
+	}
+
 	private Node<T> reverse(Node<T> head) {
 		Node<T> prev = null;
 		while (head != null) {
