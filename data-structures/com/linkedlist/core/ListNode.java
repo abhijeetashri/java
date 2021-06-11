@@ -114,6 +114,41 @@ public final class ListNode<T> {
 		return cycleLength;
 	}
 
+	public boolean isPalindromic() {
+		Node<T> slowPtr = head;
+		Node<T> fastPtr = head;
+		while (slowPtr != null && fastPtr != null && fastPtr.next != null) {
+			slowPtr = slowPtr.next;
+			fastPtr = fastPtr.next.next;
+		}
+
+		Node<T> headOfHalfReversedList = reverse(slowPtr);
+		Node<T> headFwd = head;
+		Node<T> headRev = headOfHalfReversedList;
+
+		while (headFwd != null && headRev != null) {
+			if (!headFwd.getData().equals(headRev.getData())) {
+				break; // not a palindrome
+			}
+			headFwd = headFwd.next;
+			headRev = headRev.next;
+		}
+
+		reverse(headOfHalfReversedList);
+		return headFwd == null || headRev == null;
+	}
+
+	private Node<T> reverse(Node<T> head) {
+		Node<T> prev = null;
+		while (head != null) {
+			Node<T> next = head.next;
+			head.next = prev;
+			prev = head;
+			head = next;
+		}
+		return prev;
+	}
+
 	public static class Node<T> {
 		private T data;
 		private Node<T> next;

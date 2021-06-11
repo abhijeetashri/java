@@ -2,7 +2,7 @@ package com.linkedlist.core;
 
 import com.linkedlist.core.ListNode.Node;
 
-public class DriverClass {
+public class CyclicLinkedList {
 
 	public static void main(String[] args) {
 		ListNode<String> list = new ListNode<>();
