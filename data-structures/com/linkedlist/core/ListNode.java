@@ -26,6 +26,56 @@ public final class ListNode<T> {
 		return tail;
 	}
 
+	public void reverse() {
+		head = reverse(head);
+	}
+
+	public void reverseFirstKElements(int k) {
+		reverseSublist(1, k);
+	}
+
+	public void reverseEveryKElements(int k) {
+		if (k < 1)
+			return;
+
+		for (int i = 1; i <= nodeCount;) {
+			reverseSublist(i, (i + k - 1));
+			i = i + k;
+		}
+	}
+
+	public void reverseAlternateKElements(int k) {
+		if (k < 1)
+			return;
+
+		boolean isReversed = false;
+		for (int i = 1; i <= nodeCount;) {
+			if (!isReversed) {
+				reverseSublist(i, (i + k - 1));
+				isReversed = true;
+			} else {
+				isReversed = false;
+			}
+
+			i = i + k;
+		}
+	}
+
+	/**
+	 * <p>
+	 * Given a LinkedList with ‘n’ nodes, reverse it based on its size in the
+	 * following way:
+	 * <ul>
+	 * <li>If ‘n’ is even, reverse the list in a group of n/2 nodes.</li>
+	 * <li>If n is odd, keep the middle node as it is, reverse the first ‘n/2’ nodes
+	 * and reverse the last ‘n/2’ nodes.</li>
+	 * </ul>
+	 * </p>
+	 */
+	public void reverseBySkippingMiddleNode() {
+
+	}
+
 	// Zero-based index
 	public Node<T> getNodeAt(int index) {
 		if (nodeCount < index)
@@ -166,6 +216,38 @@ public final class ListNode<T> {
 		if (headFwd != null) {
 			headFwd.next = null;
 		}
+	}
+
+	public void reverseSublist(int startIdx, int endIdx) {
+		if (startIdx >= endIdx)
+			return;
+
+		Node<T> prev = null, current = head;
+
+		// Loop till (p-1) is found.
+		for (int i = 0; current != null && i < startIdx - 1; ++i) {
+			prev = current;
+			current = current.next;
+		}
+
+		Node<T> sublistHead = prev;
+		Node<T> sublistTail = current;
+		Node<T> next = null;
+
+		// current will become 'q+1'th node.
+		for (int i = 0; current != null && i < endIdx - startIdx + 1; ++i) {
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+
+		if (sublistHead != null)
+			sublistHead.next = prev;
+		else
+			head = prev;
+
+		sublistTail.next = current;
 	}
 
 	private Node<T> reverse(Node<T> head) {
