@@ -15,17 +15,17 @@ public class UndirectedGraph extends Graph {
 	}
 
 	@Override
-	public void print() {
-		System.out.println(">>> Undirected Graph <<<");
-		super.print();
-	}
-
-	@Override
 	public void removeEgde(int src, int dest) {
 		if (src < vertices && dest < vertices) {
 			// Remove bidirectional connections
 			adjacencyList[src].remove(dest);
 			adjacencyList[dest].remove(src);
 		}
+	}
+
+	@Override
+	public void print() {
+		System.out.println(">>> Undirected Graph <<<");
+		super.print();
 	}
 }

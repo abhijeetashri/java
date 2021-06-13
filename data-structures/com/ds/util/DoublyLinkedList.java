@@ -1,9 +1,22 @@
 package com.ds.util;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class DoublyLinkedList<T> {
 	private Node<T> head;
 	private Node<T> tail;
 	private int modCount;
+
+	public List<Node<T>> nodes() {
+		List<Node<T>> nodes = new LinkedList<>();
+		Node<T> current = head;
+		while (current != null) {
+			nodes.add(current);
+			current = current.next;
+		}
+		return nodes;
+	}
 
 	public void insertAtEnd(T data) {
 		Node<T> newNode = new Node<>(data);
@@ -29,20 +42,7 @@ public class DoublyLinkedList<T> {
 		System.out.println(sb.toString());
 	}
 
-	private static class Node<T> {
-		T data;
-		Node<T> next;
-		Node<T> prev;
-
-		public Node(T data) {
-			this.data = data;
-		}
-
-		public T getData() {
-			return data;
-		}
-	}
-
+	// for edge removal
 	public void remove(int value) {
 		Node<T> current = head;
 		while (current != null && !current.getData().equals(value)) {
@@ -64,6 +64,20 @@ public class DoublyLinkedList<T> {
 			current.next = null;
 			current.prev = null;
 			++modCount;
+		}
+	}
+
+	public static class Node<T> {
+		T data;
+		Node<T> next;
+		Node<T> prev;
+
+		public Node(T data) {
+			this.data = data;
+		}
+
+		public T getData() {
+			return data;
 		}
 	}
 }

@@ -10,7 +10,6 @@ public class Stack<T> {
 	public Stack(int capacity) {
 		this.maxSize = capacity;
 		array = (T[]) new Object[capacity];
-		top = -1;
 	}
 
 	public boolean isEmpty() {
@@ -35,7 +34,7 @@ public class Stack<T> {
 			throw new IllegalStateException("Stack is empty");
 		}
 
-		T data = array[top--];
+		T data = array[--top];
 		--size;
 		return data;
 	}

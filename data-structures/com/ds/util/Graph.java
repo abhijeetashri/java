@@ -1,7 +1,10 @@
 package com.ds.util;
 
-public abstract class Graph {
+import java.util.List;
 
+import com.ds.util.DoublyLinkedList.Node;
+
+public abstract class Graph {
 	protected int vertices;
 	protected DoublyLinkedList<Integer>[] adjacencyList;
 
@@ -15,13 +18,13 @@ public abstract class Graph {
 		}
 	}
 
-	public int vertices() {
-		return vertices;
-	}
-
 	public abstract void addEgde(int src, int dest);
 
 	public abstract void removeEgde(int src, int dest);
+
+	public int vertices() {
+		return vertices;
+	}
 
 	public void print() {
 		if (adjacencyList == null) {
@@ -34,5 +37,75 @@ public abstract class Graph {
 			System.out.print("| " + i + " | -> ");
 			dll.print();
 		}
+	}
+
+	public void bfs(int start) {
+		if (vertices < 1) {
+			return;
+		}
+
+		StringBuilder result = new StringBuilder();
+
+		// Initialize trackers
+		boolean[] visited = new boolean[vertices];
+		Queue<Integer> queue = new Queue<>(vertices);
+
+		// Initialize with source
+		queue.enqueue(start);
+		visited[start] = true;
+
+		while (!queue.isEmpty()) {
+			Integer vertex = queue.dequeue();
+			result.append(vertex).append(" -> ");
+			List<Node<Integer>> list = adjacencyList[vertex].nodes();
+
+			for (int i = 0; i < list.size(); i++) {
+				Integer node = list.get(i).getData();
+
+				// Enqueue only unvisited nodes
+				if (!visited[node]) {
+					queue.enqueue(node);
+					visited[node] = true;
+				}
+			}
+		}
+
+		result.append("null");
+		System.out.println(result.toString());
+	}
+
+	public void dfs(int start) {
+		if (vertices < 1) {
+			return;
+		}
+
+		StringBuilder result = new StringBuilder();
+
+		// Initialize trackers
+		boolean[] visited = new boolean[vertices];
+		Stack<Integer> stack = new Stack<>(vertices);
+
+		// Initialize with source
+		stack.push(start);
+		visited[start] = true;
+
+		while (!stack.isEmpty()) {
+			Integer vertex = stack.pop();
+			result.append(vertex).append(" -> ");
+			List<Node<Integer>> list = adjacencyList[vertex].nodes();
+
+			for (int i = 0; i < list.size(); i++) {
+				Integer node = list.get(i).getData();
+
+				// Push only unvisited nodes
+				if (!visited[node]) {
+					stack.push(node);
+					visited[node] = true;
+				}
+			}
+		}
+
+		result.append("null");
+		System.out.println(result.toString());
 	}
 }
