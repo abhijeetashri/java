@@ -15,7 +15,7 @@ public class BoggleBoard {
 			{ 'K', 'A', 'F', 'B' } //
 	};
 
-	private static final int BOARD_ROWS = BOGGLE_BOARD.length;
+	private static final int BOARD_ROWS = (BOGGLE_BOARD == null) ? 0 : BOGGLE_BOARD.length;
 	private static final int BOARD_COLS = (BOARD_ROWS > 0) ? BOGGLE_BOARD[0].length : 0;
 	private static final List<String> VALID_WORDS = Arrays.asList("START", "NOTE", "SAND", "STONED");
 
