@@ -108,4 +108,24 @@ public abstract class Graph {
 		result.append("null");
 		System.out.println(result.toString());
 	}
+
+	public boolean isCyclic(Integer startVertex) {
+		// -1 indicates a default parent
+		return hasCycle(startVertex, -1, new boolean[vertices]);
+	}
+
+	private boolean hasCycle(Integer vertex, Integer parentVertex, boolean[] visited) {
+		visited[vertex] = true;
+		List<Node<Integer>> list = adjacencyList[vertex].nodes();
+
+		for (Node<Integer> node : list) {
+			if (!visited[node.getData()] && hasCycle(node.getData(), vertex, visited)) {
+				return true;
+			} else if (node.getData() != parentVertex) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
