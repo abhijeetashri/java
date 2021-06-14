@@ -119,8 +119,9 @@ public abstract class Graph {
 		List<Node<Integer>> list = adjacencyList[vertex].nodes();
 
 		for (Node<Integer> node : list) {
-			if (!visited[node.getData()] && hasCycle(node.getData(), vertex, visited)) {
-				return true;
+			if (!visited[node.getData()]) {
+				if (hasCycle(node.getData(), vertex, visited))
+					return true;
 			} else if (node.getData() != parentVertex) {
 				return true;
 			}
